@@ -1,7 +1,7 @@
 import random
 import copy
 
-class State:
+class State:  # Classe principal 
     def __init__(self, mis, can, boatSide, dad, cost, depth, operator):
         self.mis = mis
         self.can = can
@@ -115,10 +115,18 @@ def isSolution(state):
     if(state.mis == 0 and state.can == 0 and state.boatSide == 1): return True
     return False
 #-------------------------------------------------------------------------------------------------------------------------
+#=======================================FUNÇOES AUXILIARES=============================================================
 def print_list(this_list):
     for state in this_list:
         print("({},{},{})".format(state.mis, state.can, state.boatSide))
-
+        
+def getPath(state):
+    while(state != None):
+        list.append(state)
+        state = state.dad
+    list.reverse()
+#------------------------------------------------------------------------------------------------------------------------------
+#=======================================EFETUAÇÃO DAS TRANSIÇOES DE ESTADO=====================================================
 bound = []
 
 inicial = State(3, 3, 0, None, 1, 0, None)
@@ -128,7 +136,7 @@ bound.append(inicial)
 Solution = None
 
 count = 0;
-#=======================================EFETUAÇÃO DAS TRANSIÇOES DE ESTADO=====================================================
+
 while(True):
     if(len(bound) == 0):
         print("No Solution")
@@ -165,12 +173,5 @@ while(True):
     
 list = []
 
-def getPath(state):
-    while(state != None):
-        list.append(state)
-        state = state.dad
-        
 getPath(Solution)
-list.reverse()
-
 print_list(list)
