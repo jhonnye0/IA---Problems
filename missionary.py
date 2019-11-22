@@ -1,15 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[332]:
-
-
 import random
 import copy
-
-
-# In[333]:
-
 
 class State:
     def __init__(self, mis, can, boatSide, dad, cost, depth, operator):
@@ -26,12 +16,8 @@ class State:
         return (self.mis == another.mis and 
               self.can == another.can and
               self.boatSide == another.boatSide)
-      
 
-
-# In[334]:
-
-
+# =======================================OPERAÇOES ======================================================
 def operation_MoveTwoMis(state):
     new_state = copy.copy(state)       # copia os atributos
     new_state.dad = state              # atribui o pai
@@ -43,10 +29,6 @@ def operation_MoveTwoMis(state):
     
     new_state.boatSide = 1 if 0 else 1   # move o barco para o outro lado
     return new_state
-
-
-# In[335]:
-
 
 def operation_MoveOneMisOneCan(state):
     new_state = copy.copy(state)       # copia os atributos
@@ -64,10 +46,6 @@ def operation_MoveOneMisOneCan(state):
         new_state.boatSide = 1
     return new_state
 
-
-# In[336]:
-
-
 def operation_MoveTwoCan(state):
     new_state = copy.copy(state)       # copia os atributos
     new_state.dad = state              # atribui o pai
@@ -82,10 +60,6 @@ def operation_MoveTwoCan(state):
     else:
         new_state.boatSide = 1
     return new_state
-
-
-# In[337]:
-
 
 def operation_MoveOneMis(state):
     new_state = copy.copy(state)       # copia os atributos
@@ -102,10 +76,6 @@ def operation_MoveOneMis(state):
         new_state.boatSide = 1
     return new_state
 
-
-# In[338]:
-
-
 def operation_MoveOneCan(state):
     new_state = copy.copy(state)       # copia os atributos
     new_state.dad = state              # atribui o pai
@@ -120,10 +90,8 @@ def operation_MoveOneCan(state):
     else:
         new_state.boatSide = 1
     return new_state
-
-
-# In[339]:
-
+# --------------------------------------------------------------------------------------------------------------
+# =======================================Checagens de Validade e Solução ======================================================
 
 def isValid(state):
     if(state == None): 
@@ -143,16 +111,13 @@ def isValid(state):
     return True
 
 
-# In[340]:
-
-
 def isSolution(state):
     if(state.mis == 0 and state.can == 0 and state.boatSide == 1): return True
     return False
-
-
-# In[341]:
-
+#-------------------------------------------------------------------------------------------------------------------------
+def print_list(this_list):
+    for state in this_list:
+        print("({},{},{})".format(state.mis, state.can, state.boatSide))
 
 bound = []
 
@@ -162,19 +127,8 @@ bound.append(inicial)
 
 Solution = None
 
-
-# In[342]:
-
-
-def print_list(this_list):
-    for state in this_list:
-        print("({},{},{})".format(state.mis, state.can, state.boatSide))
-
-
-# In[343]:
-
-
 count = 0;
+#=======================================EFETUAÇÃO DAS TRANSIÇOES DE ESTADO=====================================================
 while(True):
     if(len(bound) == 0):
         print("No Solution")
@@ -208,39 +162,15 @@ while(True):
         if(isValid(new_state)):
             bound.append(new_state)
     count += 1
-
-
-# In[352]:
-
-
+    
 list = []
 
 def getPath(state):
     while(state != None):
         list.append(state)
         state = state.dad
-
-
-# In[353]:
-
-
+        
 getPath(Solution)
-
-
-# In[354]:
-
-
 list.reverse()
 
-
-# In[355]:
-
-
 print_list(list)
-
-
-# In[ ]:
-
-
-
-
